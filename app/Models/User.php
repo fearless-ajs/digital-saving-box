@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'slug',
         'password',
     ];
 
@@ -49,15 +50,16 @@ class User extends Authenticatable
             return "https://ui-avatars.com/api/?name=$this->name&color=563C5C&background=FFFFFF";
         }
     }
-
-    public function medias()
-    {
-        return $this->hasMany(ChurchFileLink::class, 'church_id');
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
     }
 
-    public function members()
-    {
-        return $this->hasMany(Member::class, 'church_id');
+    public function setSlugAttribute($value){
+        $this->attributes['slug'] = \Str::slug($value);
+    }
+
+    public function donations(){
+        return $this->hasMany(Donation::class, 'church_id');
     }
 
 }
