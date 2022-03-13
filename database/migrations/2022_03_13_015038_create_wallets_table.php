@@ -18,6 +18,7 @@ class CreateWalletsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->double('balance')->default(0);
             $table->double('bonus')->nullable()->default(0);
+            $table->double('overdue')->nullable()->default(0);
             $table->dateTime('checkout_date');
             $table->timestamps();
         });

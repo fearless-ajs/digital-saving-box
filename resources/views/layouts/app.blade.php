@@ -120,16 +120,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                        <a href="{{route('transactions')}}" class="nav-link @if(Route::currentRouteName() === 'transactions') active @else '' @endif ">
+                            <i class="nav-icon fas fa-file-archive"></i>
                             <p>
                                 Transactions
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                        <a href="{{route('checkout')}}" class="nav-link @if(Route::currentRouteName() === 'checkout') active @else '' @endif ">
+                            <i class="nav-icon fas fa-cash-register"></i>
                             <p>
                                 Checkout
                             </p>
@@ -257,30 +257,7 @@
         });
     });
 
-    var sweet_loader = '<div class="sweet_loader"><svg viewBox="0 0 140 140" width="140" height="140"><g class="outline"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="rgba(0,0,0,0.1)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></g><g class="circle"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="#71BBFF" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dashoffset="200" stroke-dasharray="300"></path></g></svg></div>';
-    window.addEventListener('swal:wait', event => {
-        swal({
-            title: 'Please Wait !',
-            html: 'Processing request',// add html attribute if you want or remove
-            allowOutsideClick: false,
-            onBeforeOpen: () => {
-                swal.showLoading()
-            },
-        });
-    });
-
-    window.addEventListener('swal:done_waiting', event => {
-        swal({
-            title: 'Please Wait !',
-            html: 'Processing request',// add html attribute if you want or remove
-            allowOutsideClick: false,
-            onBeforeOpen: () => {
-                swal.hideLoading()
-            },
-        });
-    });
-
-    window.addEventListener('swal:confirm', event => {
+    window.addEventListener('swal:confirmExtension', event => {
         swal({
             title: event.detail.title,
             text: event.detail.text,
@@ -290,13 +267,12 @@
         })
             .then((willDelete) => {
                 if(willDelete){
-                    window.livewire.emit('delete', event.detail.id);
+                    window.livewire.emit('extendDate', event.detail.date);
                 }
             });
     });
 
-
-    window.addEventListener('swal:confirmMember', event => {
+    window.addEventListener('swal:confirmWithdraw', event => {
         swal({
             title: event.detail.title,
             text: event.detail.text,
@@ -306,7 +282,7 @@
         })
             .then((willDelete) => {
                 if(willDelete){
-                    window.livewire.emit('deleteMember', event.detail.id);
+                    window.livewire.emit('withdrawBalance', event.detail.amount);
                 }
             });
     });

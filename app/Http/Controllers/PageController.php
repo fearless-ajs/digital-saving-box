@@ -17,4 +17,12 @@ class PageController extends Controller
     public function deposit () {
         return view('pages.deposit-page');
     }
+
+    public function transactions () {
+        return view('pages.transactions-page');
+    }
+
+    public function checkout () {
+        return view('pages.checkout-page');
+    }
 }

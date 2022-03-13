@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/',                   [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard',          [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('/deposit',            [PageController::class, 'deposit'])->name('deposit');
+    Route::get('/transactions',       [PageController::class, 'transactions'])->name('transactions');
+    Route::get('/checkout',           [PageController::class, 'checkout'])->name('checkout');
     Route::get('/account-settings',   [PageController::class, 'accountSettings'])->name('account-settings');
 
 });
