@@ -1,7 +1,7 @@
-@if(session()->has('message'))
+@if(session()->has('status'))
     <br>
     <div class="alert alert-success alert-dismissible fade show" style="text-align: center;" role="alert">
-        <strong>{{session()->get('message')}}</strong>
+        <strong>{{session()->get('status')}}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

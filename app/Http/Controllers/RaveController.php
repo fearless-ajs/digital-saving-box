@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\TransferUser;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use  App\Models\User001;
 
@@ -93,7 +95,7 @@ class RaveController extends Controller
 
     /**
      * Obtain Rave callback information
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function callback()
     {
@@ -102,25 +104,29 @@ class RaveController extends Controller
 
         //if payment is successful
         if ($status ==  'successful') {
+            $transactionID = Flutterwave::getTransactionIDFromCallback();
+            $data = Flutterwave::verifyTransaction($transactionID);
+            $dat1=request()->customer;
 
+            Transaction::where('reference_no', request()->tx_ref)->update(['status'=>request()->status]);
+            $transaction = Transaction::where('reference_no', request()->tx_ref)->first();
 
+            $wallet =  Wallet::where('user_id', \Auth::user()->id)->first();
+            Wallet::where('user_id', \Auth::user()->id)->update([
+                'balance' =>  $wallet->balance + $transaction->amount
+            ]);
 
-
-        $transactionID = Flutterwave::getTransactionIDFromCallback();
-        $data = Flutterwave::verifyTransaction($transactionID);
-        $dat1=request()->customer;
-
-
-     User001::where('reference_no', request()->tx_ref)->update(['transaction_id'=> $transactionID,'status'=>request()->status,]);
-            return redirect("/")->with('success',"Payment Successful");
+            return redirect(route('deposit'))->with('status',"Deposit successful");
         }
         elseif ($status ==  'cancelled'){
             //Put desired action/code after transaction has been cancelled here
-           return redirect("/")->with('status',"Transaction Cancelled");
+           Transaction::where('reference_no', request()->tx_ref)->update(['status'=>request()->status]);
+           return redirect(route('deposit'))->with('error',"Transaction Cancelled");
         }
         else{
             //Put desired action/code after transaction has failed here
-            return redirect("/")->with('status',"Error");
+            Transaction::where('reference_no', request()->tx_ref)->update(['status'=>'failed']);
+            return redirect(route(route('deposit')))->with('error',"Something went wrong");
         }
         // Get the transaction from your DB using the transaction reference (txref)
         // Check if you have previously given value for the transaction. If you have, redirect to your successpage else, continue

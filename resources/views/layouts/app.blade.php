@@ -112,8 +112,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                        <a href="{{route('deposit')}}" class="nav-link @if(Route::currentRouteName() === 'deposit') active @else '' @endif ">
+                            <i class="nav-icon fas fa-cash-register"></i>
                             <p>
                                 Deposit
                             </p>

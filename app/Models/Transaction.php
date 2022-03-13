@@ -13,6 +13,7 @@ class Transaction extends Model
         'payment_type',
         'user_type',
         'status',
+        'reference_no',
         'amount'
     ];
 }

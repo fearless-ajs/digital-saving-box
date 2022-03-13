@@ -23,8 +23,16 @@ class UserDashboard extends Component
     }
 
     public function computeTransactions(){
-        $lastDepositTransaction    = Transaction::orderBy('created_at', 'DESC')->where('user_id', \Auth::user()->id)->where('payment_type', 'Deposit')->first();
-        $lastWithdrawalTransaction = Transaction::orderBy('created_at', 'DESC')->where('user_id', \Auth::user()->id)->where('payment_type', 'Withdrawal')->first();
+        $lastDepositTransaction    = Transaction::orderBy('created_at', 'DESC')
+            ->where('user_id', \Auth::user()->id)
+            ->where('payment_type', 'Deposit')
+            ->where('status', 'successful')
+            ->first();
+        $lastWithdrawalTransaction = Transaction::orderBy('created_at', 'DESC')
+            ->where('user_id', \Auth::user()->id)
+            ->where('payment_type', 'Withdrawal')
+            ->where('status', 'successful')
+            ->first();
         if ($lastDepositTransaction){
             $this->lastDeposit = $lastDepositTransaction->amount;
         }else{

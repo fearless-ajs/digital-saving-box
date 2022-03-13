@@ -13,4 +13,8 @@ class PageController extends Controller
     public function accountSettings () {
         return view('pages.account-settings-page');
     }
+
+    public function deposit () {
+        return view('pages.deposit-page');
+    }
 }
