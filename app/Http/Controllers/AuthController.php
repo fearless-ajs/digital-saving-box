@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function logout() {
         Auth::logout();
-        return redirect()->route('church.login');
+        return redirect()->route('login');
     }
 
     public function login() {

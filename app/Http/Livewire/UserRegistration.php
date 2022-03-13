@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\AccountSetting;
 use App\Models\User;
 use App\Models\Wallet;
 use Carbon\Carbon;
@@ -50,6 +51,11 @@ class UserRegistration extends Component
             'balance'       => 0.00,
             'bonus'         => 0.00,
             'checkout_date' => $this->checkout_date
+        ]);
+
+        AccountSetting::create([
+            'user_id'       => $user->id,
+            'account_name'  => $this->name,
         ]);
 
         $this->name                  = '';
