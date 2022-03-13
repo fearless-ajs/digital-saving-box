@@ -23,13 +23,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect('/church/dashboard');
-            }
-            if (Auth::guard('member')->check()) {
-                return redirect('/church/dashboard');
-            }
-            if (Auth::guard('admin')->check()) {
-                return redirect('/admin/dashboard');
+                return redirect(RouteServiceProvider::HOME);
             }
         }
 

@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->enum('payment_type', ['Withdrawal', 'Deposit']);
             $table->enum('status', ['pending', 'Success', 'Failed']);
-            $table->integer('amount');
+            $table->double('amount');
             $table->timestamps();
         });
     }

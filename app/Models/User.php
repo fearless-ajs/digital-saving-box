@@ -54,12 +54,6 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
-    public function setSlugAttribute($value){
-        $this->attributes['slug'] = \Str::slug($value);
-    }
 
-    public function donations(){
-        return $this->hasMany(Donation::class, 'church_id');
-    }
 
 }

@@ -27,7 +27,7 @@ class UserLogin extends Component
 
         if(Auth::attempt(['email' => $this->email, 'password' => $this->password]))
         {
-            return redirect()->intended('/dashboard');
+            return redirect()->intended(route('dashboard'));
         }
 
         return $this->emit('alert', ['type' => 'error', 'message' => 'invalid credentials.']);

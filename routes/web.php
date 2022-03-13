@@ -17,12 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login',    [AuthController::class, 'login'])->name('login');
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/logout',   [AuthController::class, 'logout'])->name('logout');
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('/login',    [AuthController::class, 'login'])->name('login');
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+});
+
 
 // Protected routes
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/logout',             [AuthController::class, 'logout'])->name('logout');
     Route::post('sent',               [submitController::class, 'create'])->name('sent');
     Route::post('/pay',               [RaveController::class, 'initialize'])->name('pay');
     Route::post('/save-transfer',     [RaveController::class, 'saveTransferInfo'])->name('save-pages-transfer-details');

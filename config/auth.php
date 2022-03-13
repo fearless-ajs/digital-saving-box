@@ -41,18 +41,6 @@ return [
             'provider' => 'users',
         ],
 
-        'member' => [
-            'redirectTo' => 'member.dashboard',
-            'driver' => 'session',
-            'provider' => 'members',
-        ],
-
-        'admin' => [
-            'redirectTo' => 'admin.dashboard',
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
-
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -81,16 +69,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-
-        'members' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Member::class,
-        ],
-
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -122,12 +100,6 @@ return [
             'throttle' => 60,
         ],
 
-        'admins' => [
-            'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
     ],
 
     /*
